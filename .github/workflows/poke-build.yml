@@ -2,8 +2,8 @@ name: Build Docker Image
 
 on:
   schedule:
-    - cron: "*/5 * * * *"   # Every 5 minutes
-  workflow_dispatch:        # Optional: allows manual runs
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
 
 jobs:
   build:
@@ -23,3 +23,15 @@ jobs:
           file: ./Dockerfile
           push: false
           tags: pokemon-app:latest
+
+      - name: Send email notification
+        uses: devops-actions/email@v1
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "✅ Docker Build Successful"
+          body: "The Docker image was built successfully."
+          to: your.email@example.com
+          from: ${{ secrets.EMAIL_USERNAME }}
