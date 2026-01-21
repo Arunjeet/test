@@ -25,13 +25,13 @@ jobs:
           tags: pokemon-app:latest
 
       - name: Send email notification
-        uses: devops-actions/email@v1
+        uses: mailslurp/send-email@v2
         with:
-          server_address: smtp.gmail.com
-          server_port: 587
-          username: ${{ secrets.EMAIL_USERNAME }}
-          password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: "✅ Docker Build Successful"
-          body: "The Docker image was built successfully."
-          to: your.email@example.com
+          smtp-host: smtp.gmail.com
+          smtp-port: 587
+          smtp-username: ${{ secrets.EMAIL_USERNAME }}
+          smtp-password: ${{ secrets.EMAIL_PASSWORD }}
           from: ${{ secrets.EMAIL_USERNAME }}
+          to: ${{ secrets.EMAIL_TO }}
+          subject: "✅ Docker Build Successful"
+          body: "The Docker image was built successfully at ${{ github.run_started_at }}."
