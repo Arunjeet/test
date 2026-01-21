@@ -1,0 +1,7 @@
+version: "3.9"
+
+services:
+  pokemon:
+    build: .
+    environment:
+      POKEAPI_URL: "https://pokeapi.co/api/v2"
